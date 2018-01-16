@@ -17,7 +17,8 @@ class Post extends Model
 
     public function user(){
 
-    return $this->belongsTo('App\User');//the belongsTo relationship tells that every 'Post' belongs to a particular id
+    return $this->belongsTo('App\User');
+    //the belongsTo relationship tells that every 'Post' belongs to a particular id
 
     }
 

@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'uid','name', 'email', 'password',
     ];
 
     /**
@@ -30,7 +30,8 @@ class User extends Authenticatable
 
      public function posts(){
 
-       return $this->hasMany('App\Post');//hasMany relationship connects the user to all his Posts;1 to many type of relationship
+       return $this->hasMany('App\Post');
+       //hasMany relationship connects the user to all his Posts;1 to many type of relationship
      }
 
 

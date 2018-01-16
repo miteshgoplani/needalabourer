@@ -32,3 +32,11 @@ Route::resource('posts','PostController');
 Auth::routes();
 
 Route::get('/dashboard', 'DashboardController@index');
+
+Route::group(['prefix'=>'labour'],function(){//insert middleware
+
+    Route::get('/home', 'LabourController@index');
+    Route::get('/profile', 'LabourController@profile');
+    Route::get('/register','LabourController@register');
+
+});

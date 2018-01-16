@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 
 class PagesController extends Controller
 {
- public function index()
-{     $title='welcome to laravel!'; 
+public function index()
+{     $title='"Need A Labourer?"'; 
      //return view('pages.index',compact('title'));
      return view('pages.index')->with('title',$title);
 }
@@ -18,10 +18,8 @@ public function about()
 }
 public function services()
 {    $data = array(
-    'title'=>'Services',
-    'services'=>['Web Designing','Programming','SEO']
-    
-
+    'title'=>'Services we Offer:',
+    'services'=>['Carpentry','Plumbing','Electrician','Construction-site Workers']
 );
      
      return view('pages.services')->with($data);

@@ -10,6 +10,20 @@
                     <form class="form-horizontal" method="POST" action="{{ route('register') }}">
                         {{ csrf_field() }}
 
+                        {{--  <div class="form-group{{ $errors->has('u_id') ? ' has-error' : '' }}">
+                            <label for="u_id" class="col-md-4 control-label">Unique id</label>
+
+                            <div class="col-md-6">
+                                <input id="u_id" type="text" class="form-control" name="u_id" value="{{ old('u_id') }}" required autofocus>
+
+                                @if ($errors->has('u_id'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('u_id') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>  --}}
+                        
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label">Name</label>
 
