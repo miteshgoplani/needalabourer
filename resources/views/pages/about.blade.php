@@ -12,7 +12,7 @@
   width: 50px;
   text-align:center;
   text-decoration: none;
-  margin: 5px 2px;
+  margin: 50px 20px;
 }
 
 .fa:hover {
@@ -131,10 +131,10 @@
 <h2>Follow Us On</h2>
 
 <!-- Add font awesome icons -->
-<a href="#" class="fa fa-facebook"></a>
-<a href="#" class="fa fa-twitter"></a>
-<a href="#" class="fa fa-google"></a>
-<a href="#" class="fa fa-linkedin"></a>
+<a href="#" class="fa fa-facebook"></a><br>
+<a href="#" class="fa fa-twitter"></a><br>
+<a href="#" class="fa fa-google"></a><br>
+<a href="#" class="fa fa-linkedin"></a><br>
 {{--  <a href="#" class="fa fa-youtube"></a>  --}}
 <a href="#" class="fa fa-instagram"></a>
 {{--  <a href="#" class="fa fa-pinterest"></a>

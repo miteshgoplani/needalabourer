@@ -17,11 +17,11 @@ write as written above.   --}}
 </div>
 
 <hr>
-<small>Written at:   {{$post->created_at}}  by {{$post->user->name}}</small>
+<small>Written at:   {{$post->created_at}}  by {{$post->user['name']}}</small>
 <hr>
 @if(!Auth::guest())
 {{--  if user is not Auth and is a guest then he wont be able to see the if block  --}}
-@if(Auth::user()->id==$post->user_id)
+@if(Auth::user()->id==$post['user_id'])
 <a href="/posts/{{$post->id}}/edit" class="btn btn-default">Edit</a>
 
 

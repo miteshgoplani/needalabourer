@@ -38,6 +38,7 @@ class PostController extends Controller
        
 
        $posts = Post::orderBy('created_at','desc')->paginate(10);//this will send posts to diff pages with one post per page
+       //return count($posts);
        return view('posts.index')->with('posts',$posts);//a folder called posts that will be in resources/views folder will have index.blade.php
 
          

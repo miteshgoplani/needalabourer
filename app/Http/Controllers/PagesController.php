@@ -12,10 +12,17 @@ public function index()
      return view('pages.index')->with('title',$title);
 }
 public function about()
-{     $title='About Us';
-       return view('pages.about')->with('title',$title);
+{     if(session()) 
+       {$title='About Us';
+       return view('pages.about')->with('title',$title);}
+       else
+       { $data = session()->all();
+        return $data;
+        //return redirect()->back()->with('error','Unauthorised Access');
+       }
      //return view('pages.about');
 }
+
 public function services()
 {    $data = array(
     'title'=>'Services we Offer:',
