@@ -71,11 +71,10 @@ class PostController extends Controller
         'cover_image'=> 'image|nullable|max:1999'//type is image and nullable to not make it a compulsory thing to upload images and for most of the apache servers max image size is 2 Megapix so limit is set to 1999 pixels  
         ]);
         
-
+        
         //handle file uploading
        if($request->hasFile('cover_image'))//if image is uploaded
-       {
-          //Get file name with the extension
+       {            //Get file name with the extension
           $fileNameWithExt =$request->file('cover_image')->getClientOriginalName();//getClientOriginalName() is used to get the origianal file with extenxion and store it in $fileNameWithExt
           
           //get just filename using php
@@ -89,7 +88,9 @@ class PostController extends Controller
                   
           //Upload Image
          $path=$request->file('cover_image')->storeAs('public/cover_images',$fileNameToStore);
-       }
+         //Storage::copy('/public/cover_images/'.$fileNameToStore, '/needalabourer/public/cover_images'.$fileNameToStore);
+         $request->file('cover_image')->move(public_path('/cover_images'), $fileNameToStore);
+        }
        else
        {
          $fileNameToStore = 'noimage.jpg';//fileNameToStore is a  variable that will look into noimage when image is not uploaded and will use this default image in posts
@@ -103,9 +104,10 @@ class PostController extends Controller
         $post->user_id = auth()->user()->id;//the user_id column of the posts table will be updated from user table's  id column obtained via Oauth
         $post->cover_image=$fileNameToStore;
         $post->save();
-
+        
+        
         return redirect('/posts')->with('success','Post created');//success message in messages file has been linked using with and message displayed will be Post Created
-    
+        
     }  
 
     /**
@@ -170,7 +172,8 @@ class PostController extends Controller
                   
           //Upload Image
          $path=$request->file('cover_image')->storeAs('public/cover_images',$fileNameToStore);
-       }
+         $request->file('cover_image')->move(public_path('/cover_images'), $fileNameToStore);
+        }
       
 
         //update posts table
@@ -179,7 +182,9 @@ class PostController extends Controller
         $post->body = $request->input('body');//save the body to database using tinker commands
         if($request->hasFile('cover_image'))//if image is uploaded
         {  Storage::delete('public/cover_images/' . $post->cover_image);
-          $post->cover_image=$fileNameToStore;//update the new image name
+            //Storage::delete(public_path('/cover_images') . $post->cover_image);
+            unlink(public_path('/cover_images/') . $post->cover_image);
+            $post->cover_image=$fileNameToStore;//update the new image name
         }
         $post->save();
 
@@ -204,9 +209,22 @@ class PostController extends Controller
             if($post->cover_image !='noimage.jpg'){
              //delete image
              Storage::delete('public/cover_images/'.$post->cover_image);
-             }
+             //Storage::delete(public_path('/cover_images') . $post->cover_image); This method doesn't work
+             unlink(public_path('/cover_images/') . $post->cover_image);
+            //Unlink is a general php method to delete files 
+            }
        $post->delete();
-       return redirect('/posts')->with('success','Post Deleted');
+       return redirect('/dashboard')->with('success','Post Deleted');
 
     }
 }
+
+
+//Security Suggestion
+// For every file that you will have in your public folder that requires protection, do a route that will verify access to them, like
+
+// /files/images/cat.jpg
+
+// and route that looks like /files/images/{image_name} so you could verify the user against given file.
+
+// After a correct validation you just do return response($full_server_filepath, 200)->header('Content-Type', 'image/jpeg');

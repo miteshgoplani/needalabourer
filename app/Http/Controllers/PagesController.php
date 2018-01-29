@@ -11,6 +11,14 @@ public function index()
      //return view('pages.index',compact('title'));
      return view('pages.index')->with('title',$title);
 }
+
+public function profile()
+{  //   $title='"Need A Labourer?"'; 
+     //return view('pages.index',compact('title'));
+     //return view('pages.index')->with('title',$title);
+    return 'gg';
+    }
+
 public function about()
 {     if(session()) 
        {$title='About Us';
