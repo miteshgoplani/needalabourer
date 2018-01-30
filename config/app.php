@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'needalabourer'),
 
     /*
     |--------------------------------------------------------------------------
@@ -178,6 +178,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        //Two step authentication
+        PragmaRX\Google2FALaravel\ServiceProvider::class,
+
     ],
 
     /*
@@ -228,6 +231,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Form' => Collective\Html\FormFacade::class,
        'Html' => Collective\Html\HtmlFacade::class,
+        //Two step verification
+        'Google2FA' => PragmaRX\Google2FALaravel\Facade::class,
     ],
 
 ];

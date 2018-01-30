@@ -34,6 +34,18 @@ Auth::routes();
 
 Route::get('/dashboard', 'DashboardController@index');
 
+//google2fa
+Route::get('/complete-registration', 'Auth\RegisterController@completeRegistration');
+Route::post('/2fa', function () {
+   // return 'gg';
+    return redirect(URL()->previous());
+})->name('2fa')->middleware('2fa');
+//reauthentication
+Route::get('/re-authenticate', 'PostController@reauthenticate');
+Route::get('/re-authenticate', 'Dashboard
+Controller@reauthenticate');
+
+
 Route::group(['prefix'=>'labour'],function(){//insert middleware
 
     Route::get('/home', 'LabourController@index');

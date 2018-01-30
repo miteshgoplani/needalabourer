@@ -14,12 +14,40 @@ class PostController extends Controller
      */
     public function __construct()//this is a constructor which is activated when the class is called
         {
-        $this->middleware('auth',['except' =>['index','show']]);//here we want to show the index and 
+        $this->middleware(['auth','2fa'],['except' =>['index','show']]);//here we want to show the index and 
         //show(individual posts) views without making the user to authenticate or login so we passed an array
         //with an except command 
         }
         
     
+        //google2fa reauthenticate
+        public function reauthenticate(Request $request)
+        {
+            // get the logged in user
+            $user = \Auth::user();
+    
+            // initialise the 2FA class
+            $google2fa = app('pragmarx.google2fa');
+    
+            // generate a new secret key for the user
+            $user->google2fa_secret = $google2fa->generateSecretKey();
+    
+            // save the user
+            $user->save();
+    
+            // generate the QR image
+            $QR_Image = $google2fa->getQRCodeInline(
+                config('app.name'),
+                $user->email,
+                $user->google2fa_secret
+            );
+    
+            // Pass the QR barcode image to our view.
+            return view('google2fa.register', ['QR_Image' => $QR_Image, 
+                                                'secret' => $user->google2fa_secret,
+                                                'reauthenticating' => true
+                                            ]);
+        }
     
     /**
      * Display a listing of the resource.

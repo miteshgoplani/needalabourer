@@ -13,7 +13,7 @@ class DashboardController extends Controller
      */
     public function __construct()//this is a constructor which is activated when the class is called which will ask for authentication before displaying posts
         {
-        $this->middleware('auth');
+        $this->middleware(['auth','2fa']);
         }
     /**
      * Show the application dashboard.
@@ -25,4 +25,35 @@ class DashboardController extends Controller
         $user = User::find($user_id);   //using 'User' model we have to find the user_id
         return view('dashboard')->with('posts',$user->posts);//$user->posts will show the posts of the specific user that has logged in since they have been already linked
     }
+
+
+    //google2fa
+    public function reauthenticate(Request $request)
+    {
+        // get the logged in user
+        $user = \Auth::user();
+
+        // initialise the 2FA class
+        $google2fa = app('pragmarx.google2fa');
+
+        // generate a new secret key for the user
+        $user->google2fa_secret = $google2fa->generateSecretKey();
+
+        // save the user
+        $user->save();
+
+        // generate the QR image
+        $QR_Image = $google2fa->getQRCodeInline(
+            config('app.name'),
+            $user->email,
+            $user->google2fa_secret
+        );
+
+        // Pass the QR barcode image to our view.
+        return view('google2fa.register', ['QR_Image' => $QR_Image, 
+                                            'secret' => $user->google2fa_secret,
+                                            'reauthenticating' => true
+                                        ]);
+    }
 }
+
