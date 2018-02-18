@@ -54,6 +54,7 @@
           <ul class="nav navbar-nav">
             @if (!Auth::guest())
             <li><a href="/profile">My profile</a></li>
+            <li><a href="/mybookings">My Bookings</a></li>
             @endif
             <li ><a href="/">Home</a></li>
             <li><a href="/about">about</a></li>

@@ -15,7 +15,7 @@
     return view('welcome');
     
 });
-
+     
 Route::get('/users/{id}/{name}', function ($id,$name) {
     return 'This is user ' .$name  .'with an id' . $id;
 });
@@ -28,7 +28,8 @@ Route::get('/about','PagesController@about');
 
 Route::get('/services','PagesController@services');
 Route::get('/profile','PagesController@profile');
-
+Route::get('/mybookings','PagesController@mybookings');
+Route::get('/test','PagesController@test');
 Route::resource('posts','PostController');
 Auth::routes();
 
@@ -37,13 +38,12 @@ Route::get('/dashboard', 'DashboardController@index');
 //google2fa
 Route::get('/complete-registration', 'Auth\RegisterController@completeRegistration');
 Route::post('/2fa', function () {
-   // return 'gg';
     return redirect(URL()->previous());
 })->name('2fa')->middleware('2fa');
+
 //reauthentication
-Route::get('/re-authenticate', 'PostController@reauthenticate');
-Route::get('/re-authenticate', 'Dashboard
-Controller@reauthenticate');
+
+Route::get('/re-authenticate', 'DashboardController@reauthenticate');
 
 
 Route::group(['prefix'=>'labour'],function(){//insert middleware

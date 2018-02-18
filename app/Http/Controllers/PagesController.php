@@ -12,12 +12,24 @@ public function index()
      return view('pages.index')->with('title',$title);
 }
 
+public function test()
+{
+    return view('pages.test');
+}
+
 public function profile()
 {  //   $title='"Need A Labourer?"'; 
-     //return view('pages.index',compact('title'));
+    return view('pages.myprofile');     
+    //return view('pages.index')->with('title',$title);
+    //return 'gggg';
+}
+
+public function mybookings()
+{  //   $title='"Need A Labourer?"'; 
+     return view('pages.mybookings');
      //return view('pages.index')->with('title',$title);
-    return 'gg';
-    }
+    //return 'gggg';
+}
 
 public function about()
 {     if(session()) 
