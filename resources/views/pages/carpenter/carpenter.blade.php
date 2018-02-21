@@ -165,7 +165,7 @@
 <body>
 <div class="w3-container">
 <p>
-<a href="#"><input   class="btn btn-success btn-lg" type="button" name="Submit" value="BOOK NOW"></a>&nbsp;&nbsp;&nbsp;&nbsp; 
+<a href="/labs"><input   class="btn btn-success btn-lg" type="button" name="Submit" value="BOOK NOW"></a>&nbsp;&nbsp;&nbsp;&nbsp; 
 <button onclick="document.getElementById('id01').style.display='block'" class="btn btn-primary btn-lg">Pricing And Terms</button>
 </p>
   <div id="id01" class="w3-modal">

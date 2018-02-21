@@ -183,7 +183,7 @@
 		<p><b>Does the rates include material/spare part charges?</b></p>
 		<p>All our rates are for labour charges only. They do not include the cost of materials. Our Service Providers will tell you what all materials (spare parts) are needed. You can buy the materials by yourself, or our Service Provider will buy the same for you.</p>
 	</div>
-	<div  class="button"><a href="#"><input type="button" name="Submit" value="BOOK NOW"></a></div>
+	<div  class="button"><a href="/labs"><input type="button" name="Submit" value="BOOK NOW"></a></div>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <body>
