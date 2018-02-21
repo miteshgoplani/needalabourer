@@ -46,10 +46,24 @@ Route::post('/2fa', function () {
 Route::get('/re-authenticate', 'DashboardController@reauthenticate');
 
 
-Route::group(['prefix'=>'labour'],function(){//insert middleware
 
-    Route::get('/home', 'LabourController@index');
-    Route::get('/profile', 'LabourController@profile');
-    Route::get('/register','LabourController@register');
+Route::resource('labs','labController');
 
-});
+// Route::group(['prefix'=>'labour'],function(){//insert middleware
+
+//     Route::get('/home', 'LabourController@index');
+//     Route::get('/profile', 'LabourController@profile');
+//     Route::get('/register','LabourController@register');
+
+// });
+
+Route::get('/carpenter', 'PagesController@carpenter');
+Route::get('/plumber', 'PagesController@plumber');
+Route::get('/electrician', 'PagesController@electrician');
+Route::get('/construction', 'PagesController@construction');
+
+Route::get('/labs/{id}/book','labController@book');
+
+Route::POST('/', [
+    'uses' => 'labController@booking'
+  ]);

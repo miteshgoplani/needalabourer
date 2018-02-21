@@ -7,7 +7,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">{{config('app.name','LSAPP')}}</a>
+          <a class="navbar-brand" href="#">{{config('app.name','Needalabourer')}}</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
@@ -40,8 +40,8 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                    <a class="navbar-brand" href="{{ url('/pic/icon.ico') }}">
+                        {{ config('app.name', 'Needalabourer') }}
                     </a>
                 </div>
 
@@ -52,6 +52,9 @@
                     </ul>
           
           <ul class="nav navbar-nav">
+            
+          
+          
             @if (!Auth::guest())
             <li><a href="/profile">My profile</a></li>
             <li><a href="/mybookings">My Bookings</a></li>
@@ -79,12 +82,12 @@
 
                                 <ul class="dropdown-menu" role="menu">
                                     <li><a href="/dashboard">Dashboard</a></li>
-                                    <li>
-                                        <a href="{{ route('logout') }}"
+                                    <li><a href="/mybookings">My bookings</a></li>
+                                     <li>   <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                             Logout
-                                        </a>
+                                        </a></li>
 
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}

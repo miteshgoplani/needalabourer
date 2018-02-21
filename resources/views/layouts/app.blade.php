@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 <head>
-               {{--  <style>
+               <style>
                 div{    
-                background-color: green;
+                /* background-color: green; */
+                /* background-image: url(/pic/icon.ico);
+background-repeat: no-repeat;
+background-attachment: fixed;
+background-size: cover; */
+
                 }
-                </style>  --}}
-            
+                </style>  
+    <link rel="icon" href="pic/icon.ico">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,7 +30,10 @@
 
 </head>
 <body>
-        <div id="app">
+
+
+
+<div id="app">
             
 
       

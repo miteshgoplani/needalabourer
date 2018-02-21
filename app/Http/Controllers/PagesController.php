@@ -51,4 +51,27 @@ public function services()
      
      return view('pages.services')->with($data);
 }
+
+public function carpenter()
+{   
+    return view('pages.carpenter.carpenter');
 }
+
+public function plumber()
+{   
+    return view('pages.plumber.plumber');
+}
+
+public function electrician()
+{   
+    return view('pages.electrician.electrician');
+}
+
+public function construction()
+{   
+    return view('pages.construction.construction');
+}
+
+
+}
+
