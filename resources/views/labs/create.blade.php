@@ -2,6 +2,12 @@
 
 @section('content')
 
+<head>
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.2/css/star-rating.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.2/js/star-rating.min.js"></script>
+</head>
 <h1>Labour Details</h1>
 
 {!! Form::open(['action' => 'labController@store', 'method'=> 'POST','enctype'=>'multipart/form-data']) !!}
@@ -90,11 +96,40 @@
     {{form::label('description','Additional Details')}}
     {{form::text('description','',['id' => 'article-ckeditor', 'class' => 'form-control','placeholder' => 'Additional Details'])}}
     </div> 
+    <br>
+    
+    <!-- <input id="input-id" type="text" class="rating" data-size="lg" > -->
 
     
-    
-    {{form::submit('Add Labourer',['class' => 'btn btn-primary' ]) }}
-    
+    <div class="container">
+
+
+<h2>Enter Initial Rating for Labourer</h2>
+
+
+    <br>
+    <label for="input-1" class="control-label">Give a rating for Skill:</label>
+    <input id="input-1" name="input-1" class="rating rating-loading" data-min="0" data-max="5" data-step="0.1" value="5">
+
+
+    <!-- <br/>
+    <label for="input-2" class="control-label">Give a rating for Knowledge:</label>
+    <input id="input-2" name="input-2" class="rating rating-loading" data-min="0" data-max="5" data-step="0.1" value="4">
+
+
+    <br/>
+    <label for="input-3" class="control-label">Give a rating for PHP:</label>
+    <input id="input-3" name="input-3" class="rating rating-loading" data-min="0" data-max="5" data-step="0.1" value="5"> -->
+
+
+</div>
+
+
+<script>
+$("#input-id").rating();
+</script>
+
+{{form::submit('Insert Labour Data',['class' => 'btn btn-primary' ]) }}    
 
 
 {!! Form::close() !!}

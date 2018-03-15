@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;//to use the storage library
 use App\Post;//to use Post model and therefore we can use all the tinker commands to store posts 
+use App\lab;
 Use DB;
 class PostController extends Controller
 {   /**
@@ -39,7 +40,7 @@ class PostController extends Controller
        //return Post::where('title','Post Two')->get();//will display Post Two
        
 
-       $posts = Post::orderBy('created_at','desc')->paginate(10);//this will send posts to diff pages with one post per page
+       $posts = Post::orderBy('rating','desc')->paginate(10);//this will send posts to diff pages with one post per page
        //return count($posts);
        return view('posts.index')->with('posts',$posts);//a folder called posts that will be in resources/views folder will have index.blade.php
 
@@ -63,9 +64,14 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+     
+
+
     public function store(Request $request)
     {
-        
+        if(!$request->input('input-1')) 
+        {
+            
         $this->validate($request,[//validating request by submit button
              
         'title'=>'required',   
@@ -109,8 +115,70 @@ class PostController extends Controller
         
         
         return redirect('/posts')->with('success','Post created');//success message in messages file has been linked using with and message displayed will be Post Created
+    }
+    else
+    {
+        $this->validate($request,[//validating request by submit button
+            'input-1'=>'required',     
+            'title'=>'required',   
+            
+            'cover_image'=> 'image|nullable|max:1999'//type is image and nullable to not make it a compulsory thing to upload images and for most of the apache servers max image size is 2 Megapix so limit is set to 1999 pixels  
+            ]);
+            
+            
+            //handle file uploading
+           if($request->hasFile('cover_image'))//if image is uploaded
+           {            //Get file name with the extension
+              $fileNameWithExt =$request->file('cover_image')->getClientOriginalName();//getClientOriginalName() is used to get the origianal file with extenxion and store it in $fileNameWithExt
+              
+              //get just filename using php
+              $filename= pathinfo($fileNameWithExt, PATHINFO_FILENAME);//pathinfo is a function in php to get the file name
+    
+               //get just extension using laravel functoion
+              $extension=$request->file('cover_image')->getClientOriginalExtension();
+    
+              //filename to store
+              $fileNameToStore=$filename.'_'.time().'.'.$extension;// "." is used to concatenate,time is a timestamp function to make unique file names for each image uploaded that gives time of creation of post
+                      
+              //Upload Image
+             $path=$request->file('cover_image')->storeAs('public/cover_images',$fileNameToStore);
+             //Storage::copy('/public/cover_images/'.$fileNameToStore, '/needalabourer/public/cover_images'.$fileNameToStore);
+             $request->file('cover_image')->move(public_path('/cover_images'), $fileNameToStore);
+            }
+           else
+           {
+             $fileNameToStore = 'noimage.jpg';//fileNameToStore is a  variable that will look into noimage when image is not uploaded and will use this default image in posts
+    
+           }
+    
+            //create posts
+            $post=new Post;
+            $post->title = $request->input('title');//save  the title entered from the form 
+            $post->body = $request->input('body');//save the body to database using tinker commands
+            $post->user_id = auth()->user()->id;//the user_id column of the posts table will be updated from user table's  id column obtained via Oauth
+            $post->cover_image=$fileNameToStore;
+            $post->rating=$request->input('input-1');
+            $post->amount=$request->input('amount');
+            
+            
+                
+        //update labs table
         
+        
+        $lab=lab::find($request->input('labid'));
+        $post->name=$lab->name;
+        $post->type=$lab->type;
+        $lab->rating =(($lab->rating + $request->input('input-1'))/2);
+        $lab->status=NULL;
+        
+        $post->save();
+        $lab->save();
+            
+        return redirect('/labs')->with('success','Booking terminated Successfully!');
+    }
     }  
+
+
 
     /**
      * Display the specified resource.

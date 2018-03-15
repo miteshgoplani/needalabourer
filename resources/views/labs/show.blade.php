@@ -18,9 +18,9 @@
 </b><br></h1>
 <h2>Name: {{$lab->name}}</h2><br>
 <h4>profie image:</h4>
-<h4 align="right">proof image:</h4>
+@if(Auth::user()->name=='admin')<h4 align="right">proof image:</h4>@endif
 <img  style="width:20%"  src="/profile_images/{{$lab->profile_image}}">
-<img  style="width:20%" align="right" src="/proof_images/{{$lab->proof_image}}">
+@if(Auth::user()->name=='admin')<img  style="width:20%" align="right" src="/proof_images/{{$lab->proof_image}}">@endif
 <br><br>
 <div>
 

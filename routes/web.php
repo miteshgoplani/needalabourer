@@ -63,7 +63,7 @@ Route::get('/electrician', 'PagesController@electrician');
 Route::get('/construction', 'PagesController@construction');
 
 Route::get('/labs/{id}/book','labController@book');
-
+Route::get('/labs/{id}/endBooking','labController@endbook');
 Route::POST('/', [
     'uses' => 'labController@booking'
   ]);

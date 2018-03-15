@@ -36,7 +36,7 @@ class labController extends Controller
        //return Post::where('title','Post Two')->get();//will display Post Two
        
        
-       $labs = lab::orderBy('updated_at','desc')->paginate(10);//this will send posts to diff pages with one post per page
+       $labs = lab::orderBy('rating','desc')->paginate(10);//this will send posts to diff pages with one post per page
        //return count($posts);
        return view('labs.index')->with('labs',$labs);//a folder called posts that will be in resources/views folder will have index.blade.php
 
@@ -127,7 +127,7 @@ class labController extends Controller
  
         }
         
-        
+        // return($request->input('input-1'));
         //create labour account
         $lab=new lab;
         $lab->type = $request->input('type');//save  the title entered from the form 
@@ -138,6 +138,7 @@ class labController extends Controller
         $lab->zone=$request->input('zone');
         $lab->aadhar=$request->input('aadhar');
         $lab->description=$request->input('description');
+        $lab->rating=$request->input('input-1');
         $lab->save();
         
         
@@ -189,6 +190,21 @@ class labController extends Controller
         
         return view('labs.book')->with('lab',$lab);//return with the post
     }
+
+    public function endbook($id)
+    {
+        $lab= lab::find($id);//find used to find the specific post using the id and to return it to the edit page 
+        if(auth()->user()->name == 'admin')
+        {  
+            return redirect('/labs')->with('error','Admin cannot end a booking by User!!');//if another user tries to edit the post by manually entering link to edit then he'll get an unauthorized access message
+
+        }
+
+        
+        return view('labs.endbook')->with('lab',$lab);//return with the post
+    }
+
+
 
     // public function booking(Request $request, $id)
     // {   
